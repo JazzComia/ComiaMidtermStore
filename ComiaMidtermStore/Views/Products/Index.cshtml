@@ -1,0 +1,27 @@
+@model List<ComiaMidtermStore.Models.Product>
+@{ ViewData["Title"] = "Products"; }
+
+<h1>Products</h1>
+<a asp-action="Create" class="btn btn-primary mb-4">+ Add Product</a>
+
+<div class="row">
+    @foreach (var p in Model)
+    {
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">@p.Name</h5>
+                    <h6 class="card-subtitle mb-2 text-body-secondary">@p.Category</h6>
+                    <p class="card-text">@p.Description</p>
+                    <p class="fw-bold fs-5">₱@p.Price</p>
+                </div>
+                <div class="card-footer">
+                    <a asp-action="Edit" asp-route-id="@p.Id" class="btn btn-sm btn-warning">Edit</a>
+                    <a asp-controller="Cart" asp-action="Add" asp-route-id="@p.Id" class="btn btn-sm btn-success">Add to Cart</a>
+                    <a asp-action="Delete" asp-route-id="@p.Id" class="btn btn-sm btn-danger"
+                       onclick="return confirm('Delete this product?')">Delete</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
