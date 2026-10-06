@@ -36,8 +36,11 @@ namespace ComiaMidtermStore.Controllers
         public IActionResult UpdateQuantity(int id, int quantity)
         {
             var item = _db.CartItems.Find(id);
-            item.Quantity = quantity;
-            _db.SaveChanges();
+            if (item != null)
+            {
+                item.Quantity = quantity;
+                _db.SaveChanges();
+            }
             return RedirectToAction("Index");
         }
 
