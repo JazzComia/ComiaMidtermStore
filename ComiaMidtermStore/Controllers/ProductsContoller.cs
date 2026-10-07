@@ -9,11 +9,21 @@ namespace ComiaMidtermStore.Controllers
         private readonly ApplicationDbContext _db;
         public ProductsController(ApplicationDbContext db) { _db = db; }
 
-        public IActionResult Index()
+        public IActionResult Index(string searchString)
+    {
+        var products = _db.Products.AsQueryable();
+
+        if (!string.IsNullOrEmpty(searchString))
         {
-            var products = _db.Products.ToList();
-            return View(products);
+             products = products.Where(p =>
+                    p.Name.ToLower().Contains(searchString.ToLower()) ||
+                    p.Description.ToLower().Contains(searchString.ToLower()) ||
+                    p.Category.ToLower().Contains(searchString.ToLower()));
         }
+
+        ViewData["searchString"] = searchString;
+        return View(products.ToList());
+    }
 
         public IActionResult Create()
         {

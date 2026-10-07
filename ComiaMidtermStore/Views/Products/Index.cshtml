@@ -4,6 +4,13 @@
 <h1>Products</h1>
 <a asp-action="Create" class="btn btn-primary mb-4">+ Add Product</a>
 
+<form asp-action="Index" method="get" class="d-flex gap-2 mb-4">
+    <input type="text" name="searchString" value="@ViewData["searchString"]"
+           placeholder="Search product name..." class="form-control" style="max-width: 300px;" />
+    <button type="submit" class="btn btn-primary">Search</button>
+    <a asp-action="Index" class="btn btn-secondary">Clear</a>
+</form>
+
 <div class="row">
     @foreach (var p in Model)
     {
@@ -22,6 +29,7 @@
                        onclick="return confirm('Delete this product?')">Delete</a>
                 </div>
             </div>
+            
         </div>
     }
 </div>
